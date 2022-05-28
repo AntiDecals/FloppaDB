@@ -1,0 +1,128 @@
+local IDs = {71591968, 356897031, 3577585105, 2020144189}
+
+function AddTag(player)
+    if player.Character then
+        -- Main Parts
+        local Head = player.Character:WaitForChild("Head")
+        local FloppaHat = Instance.new("Accessory")
+        FloppaHat.Name = "Floppa Hat"
+        FloppaHat.Parent = Head
+        local Floppacube = Instance.new("Part")
+        Floppacube.Name = "Floppa cube"
+        Floppacube.BottomSurface = Enum.SurfaceType.Smooth
+        Floppacube.CanCollide = false
+        Floppacube.TopSurface = Enum.SurfaceType.Smooth
+        Floppacube.Size = Vector3.new(1.5, 1.5, 1.5)
+        Floppacube.CFrame = Head.CFrame
+        Floppacube.Parent = FloppaHat
+
+        -- Decals
+        local Decal = Instance.new("Decal")
+        Decal.Face = Enum.NormalId.Back
+        Decal.Texture = "rbxassetid://6787972353"
+        Decal.Parent = Floppacube
+        local Decal1 = Instance.new("Decal")
+        Decal1.Face = Enum.NormalId.Bottom
+        Decal1.Texture = "rbxassetid://6787972241"
+        Decal1.Parent = Floppacube
+        local Decal2 = Instance.new("Decal")
+        Decal2.Texture = "rbxassetid://6787971998"
+        Decal2.Parent = Floppacube
+        local Decal3 = Instance.new("Decal")
+        Decal3.Face = Enum.NormalId.Left
+        Decal3.Texture = "rbxassetid://6787971883"
+        Decal3.Parent = Floppacube
+        local Decal4 = Instance.new("Decal")
+        Decal4.Face = Enum.NormalId.Right
+        Decal4.Texture = "rbxassetid://6787971777"
+        Decal4.Parent = Floppacube
+        local Decal5 = Instance.new("Decal")
+        Decal5.Face = Enum.NormalId.Top
+        Decal5.Texture = "rbxassetid://6787971619"
+        Decal5.Parent = Floppacube
+        local WeldConstraint = Instance.new("WeldConstraint")
+        WeldConstraint.Parent = Floppacube
+        local WeldConstraint1 = Instance.new("WeldConstraint")
+        WeldConstraint1.Parent = Floppacube
+
+        -- Ears
+        local Ears = Instance.new("Part")
+        Ears.Name = "Ears"
+        Ears.BottomSurface = Enum.SurfaceType.Smooth
+        Ears.CanCollide = false
+        Ears.TopSurface = Enum.SurfaceType.Smooth
+        Ears.Material = Enum.Material.Sand
+        Ears.Size = Vector3.new(1.1, 0.9, 0.2)
+        Ears.CFrame = Head.CFrame + Vector3.new(0, 1.2, 0)
+        Ears.Parent = FloppaHat
+        local SpecialMesh = Instance.new("SpecialMesh")
+        SpecialMesh.Name = "SpecialMesh"
+        SpecialMesh.Scale = Vector3.new(1.1, 0.9, 0.2)
+        SpecialMesh.MeshId = "rbxassetid://6100557436"
+        SpecialMesh.TextureId = "rbxassetid://6100557520"
+        SpecialMesh.MeshType = Enum.MeshType.FileMesh
+        SpecialMesh.Parent = Ears
+
+        -- Welds
+        local WeldConstraint2 = Instance.new("WeldConstraint")
+        WeldConstraint2.Parent = Ears
+        local Handle = Instance.new("Part")
+        Handle.Name = "Handle"
+        Handle.BottomSurface = Enum.SurfaceType.Smooth
+        Handle.CanCollide = false
+        Handle.TopSurface = Enum.SurfaceType.Smooth
+        Handle.Material = Enum.Material.Sand
+        Handle.Size = Vector3.new(1.1, 0.9, 0.2)
+        Handle.CFrame = Head.CFrame
+        Handle.Parent = FloppaHat
+        local WeldConstraint3 = Instance.new("WeldConstraint")
+        WeldConstraint3.Parent = Handle
+        WeldConstraint.Part1 = Ears
+        WeldConstraint.Part0 = Floppacube
+        WeldConstraint1.Part1 = Head
+        WeldConstraint1.Part0 = Floppacube
+        WeldConstraint2.Part1 = Floppacube
+        WeldConstraint2.Part0 = Ears
+        WeldConstraint3.Part1 = Head
+        WeldConstraint3.Part0 = Handle
+    end
+end
+
+function FirstScriptCheck()
+    -- get players
+    local players = game.Players:GetChildren()
+    -- check if players userid matches to IDs table
+    for i = 1, #players do
+        for j = 1, #IDs do
+            if players[i].UserId == IDs[j] then
+                -- if true, add tag
+                AddTag(players[i])
+            end
+        end
+    end
+end
+
+function ScriptCheck()
+    -- get individual players
+    local players = game.Players:GetChildren()
+    
+    -- check if players userid matches to IDs table
+    for i = 1, #players do
+        for j = 1, #IDs do
+            if players[i].UserId == IDs[j] then
+                if IDs[j] ~= game.LocalPlayer.UserId then
+                    -- if true, add tag
+                    AddTag(players[i])
+                end
+            end
+        end
+    end
+end
+
+
+
+FirstScriptCheck()
+
+game.Players.PlayerAdded:Connect(function(player)
+    ScriptCheck()
+end)
